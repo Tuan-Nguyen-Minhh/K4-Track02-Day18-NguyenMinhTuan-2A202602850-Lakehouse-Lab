@@ -31,7 +31,7 @@ Kiem tra them truc tiep tren dia: doc `_lakehouse/scratch/users_delta/_delta_log
 dem lai Gold/Silver tren bang Delta, doi chieu nhung gi da in trong notebook.
 NB2, NB6, NB7 chay lai nhieu lan de kiem tra so do on dinh (chi khac o wall-clock).
 
-## Bao ca o
+## Bao cao
 
 - Anh trong `screenshots/` la **PNG render tu output that cua lan chay** (van ban,
   bang bang, so lieu), khong phai anh chup man hinh Jupyter. Noi dung lay truc tiep
