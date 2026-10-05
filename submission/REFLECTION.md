@@ -1,9 +1,12 @@
-# REFLECTION — K4-Track02-Day18
+# REFLECTION
 
-Anti-pattern nguy hiểm nhất với pipeline quan trắc LLM của tôi là **evolution schema vô tội vạ và external index stale**.
+Anti-pattern nguy hiểm nhất tôi gặp ở lab này là **quên dọn dữ liệu cũ** — thứ không ai nhìn thấy.
 
-NB1 cho thấy enforcement chặn `age='thirty'`, chỉ `schema_mode='merge'` mới thêm `tier`. Nếu cho phép merge mặc định, một job lỗi sẽ phình schema, vỡ Gold và dashboard cost/latency. NB7/NB8 còn cho thấy index ngoài không nhận delete sẽ trả dữ liệu đã xóa.
+Hệ thống tôi quan tâm lưu câu hỏi và câu trả lời giữa người dùng với mô hình AI, mỗi ngày hàng triệu bản ghi:
 
-Phòng tránh: merge phải opt-in có review, ghi provenance từ Bronze, pin version khi train, và bắt delete lan tới mọi index. Dữ liệu tôi quan tâm là log request/response có PII nên càng cần kỷ luật này.
+* **Nhiều file nhỏ, bản cũ chưa dẹp.** Mỗi lần ghi một file riêng; hàng trăm nghìn file thì mỗi câu hỏi phải đọc hết — tốn tiền. Bản cũ nằm lại vẫn bị tính tiền.
+* **Bản sao bên ngoài lệch dữ liệu.** Xoá dữ liệu một người dùng ở bản chính, nhưng bản sao lưu "gợi ý tìm kiếm" vẫn còn — hệ thống vẫn trả được dữ liệu cần xoá.
 
-AI: dùng AI để giải thích khái niệm, đọc code và gỡ lỗi; tự chạy, kiểm tra output và viết giải thích. Chi tiết xem AI_USAGE.md.
+Rút ra: phần lớn sự cố đến từ việc không ai dọn sau khi ghi chứ không phải từ mã lỗi. Cách chữa là quy trình: dọn tự động theo lịch, đặt thời hạn lưu rõ ràng, ghi lại mọi thao tác xoá. Với dữ liệu cá nhân, đó còn là nghĩa vụ pháp lý.
+
+**AI:** tôi dùng AI để giải thích khái niệm, đọc mã và soạn văn bản; số liệu do tôi tự chạy. Xem AI_USAGE.md.
